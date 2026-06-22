@@ -1,53 +1,58 @@
-# BÁO CÁO THỰC HÀNH KIỂM THỬ TỰ ĐỘNG VỚI SELENIUM
+# THỰC HÀNH LAB 8: KIỂM THỬ GIAO DIỆN TỰ ĐỘNG VỚI SELENIUM
 
-> **Học phần:** Kiểm thử phần mềm  
-> **Công cụ:** Selenium WebDriver, Python, Pytest  
-> **Website kiểm thử:** Hệ thống quản lý chương trình đào tạo UniMIS  
-> **Môi trường chạy:** Windows + Docker + Google Chrome  
-> **Sinh viên thực hiện:** [Điền họ tên]  
-> **Repository:** [Dán link GitHub repository tại đây]
+**Thông tin sinh viên:**
+* **Họ và tên:** Đồng Đại Đạt  
+* **Mã sinh viên:** 23010877  
 
 ---
 
-## 1. Mục tiêu bài thực hành
+## 1. GIỚI THIỆU VỀ SELENIUM
 
-Bài thực hành nhằm tìm hiểu và áp dụng Selenium WebDriver để tự động hóa thao tác trên trình duyệt. Các kịch bản kiểm thử được xây dựng cho website UniMIS, tập trung vào những chức năng thường dùng trên trang quản trị như đăng nhập, quản lý môn học, quản lý chương trình đào tạo, tìm kiếm dữ liệu và kiểm tra quyền truy cập.
+**Selenium** là bộ công cụ hỗ trợ kiểm thử tự động cho các ứng dụng web. Selenium cho phép lập trình viên hoặc kiểm thử viên điều khiển trình duyệt giống như một người dùng thực: mở trang web, nhập dữ liệu vào biểu mẫu, nhấn nút, lựa chọn dữ liệu, kiểm tra thông báo và xác minh kết quả hiển thị trên giao diện.
 
-Selenium WebDriver được sử dụng để điều khiển trình duyệt như người dùng thực hiện: mở trang, nhập dữ liệu, nhấn nút, chờ phần tử xuất hiện và kiểm tra kết quả. Pytest được dùng để tổ chức, chạy và thống kê kết quả các test case.
+Trong bài thực hành này, Selenium WebDriver được sử dụng cùng với ngôn ngữ Python và thư viện Pytest để xây dựng các kịch bản kiểm thử tự động cho hệ thống quản lý chương trình đào tạo UniMIS.
+
+Các khả năng chính của Selenium bao gồm:
+
+* **Tự động điều khiển trình duyệt:** Mô phỏng thao tác của người dùng trên Chrome như truy cập URL, nhập liệu, nhấn nút, chọn danh sách và tải tệp.
+* **Xác định phần tử giao diện:** Hỗ trợ nhiều loại locator như `id`, `name`, `class_name`, `xpath`, `css selector` để xác định chính xác các thành phần trên trang web.
+* **Kiểm tra kết quả hiển thị:** Cho phép xác minh tiêu đề trang, thông báo lỗi, dữ liệu trong bảng, trạng thái chuyển hướng và nội dung HTML.
+* **Chờ phần tử tải xong:** Sử dụng `WebDriverWait` để giảm lỗi do trang tải chậm hoặc phần tử chưa sẵn sàng để thao tác.
+* **Kết hợp với Pytest:** Giúp tổ chức test case theo từng chức năng, chạy hàng loạt test và thống kê số lượng test thành công hoặc thất bại.
+* **Hỗ trợ kiểm thử hồi quy:** Sau mỗi lần chỉnh sửa hệ thống, toàn bộ kịch bản có thể được chạy lại nhanh chóng để phát hiện lỗi phát sinh.
 
 ---
 
-## 2. Công cụ và môi trường
+## 2. CÔNG CỤ VÀ MÔI TRƯỜNG SỬ DỤNG
 
-| Thành phần | Sử dụng |
-|---|---|
-| Ngôn ngữ lập trình | Python |
-| Công cụ tự động hóa | Selenium WebDriver |
-| Framework chạy test | Pytest |
-| Trình duyệt | Google Chrome |
-| Ứng dụng kiểm thử | UniMIS chạy bằng Django và PostgreSQL |
-| Môi trường triển khai | Docker Compose |
-| Hệ điều hành | Windows |
+* **Công cụ kiểm thử chính:** Selenium WebDriver.
+* **Ngôn ngữ lập trình:** Python.
+* **Framework chạy kiểm thử:** Pytest.
+* **Trình duyệt kiểm thử:** Google Chrome.
+* **Hệ thống được kiểm thử:** Website quản lý chương trình đào tạo UniMIS.
+* **Công nghệ hệ thống:** Django, PostgreSQL và Docker Compose.
+* **Quản lý mã nguồn:** GitHub.
+* **Hệ điều hành thực hiện:** Windows.
 
-Cài đặt các thư viện cần thiết:
+Các thư viện Python được cài đặt bằng lệnh:
 
 ```bash
 pip install selenium pytest pytest-html
 ```
 
-Chạy hệ thống UniMIS bằng Docker:
+Khởi động hệ thống UniMIS bằng Docker:
 
 ```bash
 docker compose up -d
 ```
 
-Chạy toàn bộ kiểm thử Selenium:
+Chạy toàn bộ test Selenium:
 
 ```bash
 pytest s_tests -v
 ```
 
-Có thể xuất báo cáo HTML bằng lệnh:
+Xuất báo cáo kiểm thử HTML:
 
 ```bash
 pytest s_tests -v --html=selenium_report.html --self-contained-html
@@ -55,7 +60,41 @@ pytest s_tests -v --html=selenium_report.html --self-contained-html
 
 ---
 
-## 3. Cấu trúc thư mục kiểm thử
+## 3. NỘI DUNG THỰC HIỆN
+
+Trong phạm vi bài thực hành, bộ kiểm thử Selenium được xây dựng cho các chức năng chính của hệ thống UniMIS. Các kịch bản kiểm thử tập trung vào thao tác đăng nhập, quản lý dữ liệu đào tạo, tìm kiếm, phân quyền và xuất chương trình đào tạo.
+
+| STT | Nhóm chức năng | Test case tiêu biểu | Mục tiêu kiểm thử |
+| :---: | :--- | :--- | :--- |
+| 1 | **Đăng nhập** | Đăng nhập thành công | Xác minh người dùng quản trị có thể đăng nhập bằng tài khoản hợp lệ. |
+| 2 | **Đăng nhập** | Đăng nhập sai mật khẩu | Xác minh hệ thống từ chối thông tin đăng nhập không đúng. |
+| 3 | **Đăng nhập** | Bỏ trống tên đăng nhập hoặc mật khẩu | Kiểm tra thông báo yêu cầu nhập dữ liệu bắt buộc. |
+| 4 | **Quản lý môn học** | Tạo môn học thành công | Xác minh có thể thêm mới môn học với dữ liệu hợp lệ. |
+| 5 | **Quản lý môn học** | Tạo môn học thiếu trường bắt buộc | Kiểm tra validation khi người dùng bỏ trống dữ liệu cần thiết. |
+| 6 | **Quản lý môn học** | Tìm kiếm môn học | Xác minh chức năng tìm kiếm theo mã hoặc tên môn học. |
+| 7 | **Quản lý ngành** | Tạo và tìm kiếm ngành | Kiểm tra chức năng thêm mới, kiểm tra dữ liệu trùng và tìm kiếm ngành. |
+| 8 | **Quản lý chương trình đào tạo** | Tạo chương trình đào tạo | Xác minh có thể tạo chương trình đào tạo với ngành và năm áp dụng hợp lệ. |
+| 9 | **Quản lý chương trình đào tạo** | Kiểm tra dữ liệu trùng | Không cho phép tạo hai chương trình cùng ngành và cùng năm áp dụng. |
+| 10 | **Liên kết môn học** | Thêm môn học vào chương trình đào tạo | Xác minh môn học được thêm thành công vào chương trình đã chọn. |
+| 11 | **Xuất dữ liệu** | Xuất PDF chương trình đào tạo | Kiểm tra hệ thống tạo tệp PDF chương trình đào tạo. |
+| 12 | **Phân quyền** | Truy cập khi chưa đăng nhập | Kiểm tra người dùng chưa xác thực bị chuyển về trang đăng nhập. |
+
+Trong đó, ba test case tối thiểu đáp ứng yêu cầu bài tập gồm:
+
+| Mã TC | Tên test case | Các bước thực hiện | Kết quả mong đợi |
+| :---: | :--- | :--- | :--- |
+| TC01 | Đăng nhập thành công | Mở trang đăng nhập, nhập đúng tên đăng nhập và mật khẩu, nhấn nút đăng nhập. | Hệ thống chuyển đến trang quản trị Django. |
+| TC02 | Tạo môn học thành công | Đăng nhập, vào chức năng quản lý môn học, nhập dữ liệu hợp lệ và lưu. | Môn học mới được tạo và xuất hiện trong danh sách. |
+| TC03 | Tìm kiếm môn học tồn tại | Đăng nhập, nhập mã hoặc tên môn học vào ô tìm kiếm. | Hệ thống hiển thị đúng môn học cần tìm. |
+
+---
+
+## 4. KẾT QUẢ THỰC HIỆN KỊCH BẢN
+
+Dưới đây là các hình ảnh ghi nhận quá trình chạy bộ kiểm thử Selenium và kết quả thực tế trên hệ thống UniMIS.
+
+### 4.1. Cấu trúc thư mục kiểm thử Selenium
+*Các test case được tổ chức theo từng nhóm chức năng như đăng nhập, môn học, ngành, trường, chương trình đào tạo, phân quyền và tìm kiếm.*
 
 ```text
 selenium_tests/
@@ -63,10 +102,10 @@ selenium_tests/
 ├── s_tests/
 │   ├── test_login.py
 │   ├── test_course.py
-│   ├── test_curriculum.py
-│   ├── test_add_course_to_curriculum.py
 │   ├── test_major.py
 │   ├── test_school.py
+│   ├── test_curriculum.py
+│   ├── test_add_course_to_curriculum.py
 │   ├── test_permission.py
 │   └── test_search_filter.py
 │
@@ -75,128 +114,86 @@ selenium_tests/
 └── README.md
 ```
 
-Các test được chia theo từng nhóm chức năng để dễ bảo trì và mở rộng.
+![Cấu trúc thư mục](images/01_project_structure.png)
+
+### 4.2. Kiểm thử đăng nhập thành công
+*Xác minh người dùng có thể đăng nhập vào trang quản trị khi cung cấp đúng tên đăng nhập và mật khẩu.*
+
+![Đăng nhập thành công](images/02_login_success.png)
+
+### 4.3. Kiểm thử tạo môn học
+*Thực hiện thao tác thêm mới môn học với các thông tin hợp lệ như mã môn học, tên môn học và số tín chỉ.*
+
+![Tạo môn học](images/03_create_course.png)
+
+### 4.4. Kiểm thử tìm kiếm môn học
+*Nhập mã hoặc tên môn học vào ô tìm kiếm và kiểm tra dữ liệu trả về có đúng với dữ liệu đã tạo.*
+
+![Tìm kiếm môn học](images/04_search_course.png)
+
+### 4.5. Kiểm thử tạo chương trình đào tạo
+*Xác minh hệ thống có thể tạo chương trình đào tạo mới với ngành và năm áp dụng hợp lệ.*
+
+![Tạo chương trình đào tạo](images/05_create_curriculum.png)
+
+### 4.6. Kiểm thử thêm môn học vào chương trình đào tạo
+*Kiểm tra thao tác liên kết môn học với chương trình đào tạo đã tồn tại.*
+
+![Thêm môn học vào chương trình](images/06_add_course_to_curriculum.png)
+
+### 4.7. Kiểm thử phân quyền
+*Xác minh người dùng chưa đăng nhập không thể truy cập trực tiếp vào các trang quản trị của hệ thống.*
+
+![Kiểm thử phân quyền](images/07_permission_test.png)
+
+### 4.8. Kết quả chạy toàn bộ bộ kiểm thử Selenium
+*Kết quả Pytest cho thấy phần lớn test case đã chạy thành công. Bộ kiểm thử bao gồm các chức năng đăng nhập, tạo dữ liệu, tìm kiếm, phân quyền, thêm môn học vào chương trình đào tạo và xuất PDF.*
+
+![Kết quả chạy Selenium](images/08_selenium_test_result.png)
 
 ---
 
-## 4. Các test case tiêu biểu
+## 5. TỔNG HỢP KẾT QUẢ KIỂM THỬ
 
-Bài tập yêu cầu tối thiểu 03 test case. Trong bài thực hành này đã xây dựng nhiều test case hơn yêu cầu. Dưới đây là các test case đại diện.
-
-| Mã TC | Chức năng | Các bước chính | Kết quả mong đợi | Trạng thái |
-|---|---|---|---|---|
-| TC01 | Đăng nhập thành công | Mở trang đăng nhập, nhập đúng tài khoản quản trị và mật khẩu, nhấn đăng nhập | Hệ thống chuyển đến trang quản trị Django | PASS |
-| TC02 | Đăng nhập sai mật khẩu | Nhập đúng tên đăng nhập nhưng sai mật khẩu | Hệ thống hiển thị thông báo đăng nhập không thành công | PASS |
-| TC03 | Tạo môn học thành công | Truy cập chức năng môn học, nhập mã môn học, tên môn học, số tín chỉ và lưu | Môn học mới xuất hiện trong danh sách | PASS |
-| TC04 | Kiểm tra bắt buộc khi tạo môn học | Bỏ trống các trường bắt buộc rồi lưu | Hệ thống yêu cầu nhập các trường bắt buộc | PASS |
-| TC05 | Tìm kiếm môn học tồn tại | Nhập mã/tên môn học đã có vào ô tìm kiếm | Danh sách hiển thị đúng môn học cần tìm | PASS |
-| TC06 | Tạo chương trình đào tạo | Nhập ngành, năm áp dụng và các thông tin hợp lệ | Chương trình đào tạo được tạo thành công | PASS |
-| TC07 | Không cho phép tạo trùng chương trình đào tạo | Tạo lại chương trình có cùng ngành và năm áp dụng | Hệ thống không tạo bản ghi trùng | PASS |
-| TC08 | Thêm môn học vào chương trình đào tạo | Chọn chương trình đào tạo, chọn môn học và lưu | Môn học được gắn vào chương trình đào tạo | PASS |
-| TC09 | Xuất PDF chương trình đào tạo | Mở chương trình đào tạo và chọn xuất PDF | Hệ thống tạo hoặc tải tệp PDF | PASS |
-| TC10 | Kiểm tra quyền truy cập | Truy cập trang tạo môn học khi chưa đăng nhập | Người dùng bị chuyển về trang đăng nhập | PASS |
-
----
-
-## 5. Ví dụ mã nguồn kiểm thử
-
-Ví dụ kiểm thử đăng nhập thành công:
-
-```python
-def test_login_success(driver):
-    driver.get("http://localhost:8000/admin/login/")
-
-    driver.find_element(By.NAME, "username").send_keys("admin")
-    driver.find_element(By.NAME, "password").send_keys("mat_khau")
-
-    driver.find_element(By.CSS_SELECTOR, "input[type='submit']").click()
-
-    assert "Trang quản trị cho Django" in driver.page_source
-```
-
-Trong các test thực tế, nhóm sử dụng `WebDriverWait` để chờ phần tử sẵn sàng trước khi thao tác. Cách này giúp hạn chế lỗi do trang tải chậm hoặc phần tử chưa hiển thị.
-
----
-
-## 6. Kết quả chạy kiểm thử
-
-Kết quả từ ảnh chạy Pytest:
+Dựa trên kết quả chạy Pytest thực tế, bộ kiểm thử gồm **41 test case**, trong đó có **40 test case PASS** và **01 test case FAILED**.
 
 | Chỉ số | Kết quả |
-|---|---:|
-| Tổng số test case | 41 |
-| Test PASS | 40 |
-| Test FAILED | 1 |
-| Tỷ lệ PASS | 97,56% |
+| :--- | :---: |
+| Tổng số test case | **41** |
+| Test case thành công | **40** |
+| Test case thất bại | **01** |
+| Tỷ lệ thành công | **97,56%** |
 
-Kết quả cho thấy hầu hết các chức năng được kiểm thử hoạt động đúng theo kỳ vọng. Các nhóm chức năng đã chạy thành công gồm:
+Test case còn thất bại là:
 
-- Đăng nhập với dữ liệu đúng, sai hoặc để trống.
-- Quản lý trường, ngành, môn học và chương trình đào tạo.
-- Tìm kiếm môn học, ngành và chương trình đào tạo.
-- Thêm môn học vào chương trình đào tạo.
-- Xuất PDF chương trình đào tạo.
-- Kiểm tra phân quyền và chuyển hướng về trang đăng nhập.
+| Test case | Trạng thái | Nhận xét |
+| :--- | :---: | :--- |
+| `test_create_faculty_empty_required_fields` | FAILED | Test kiểm tra việc bỏ trống trường bắt buộc khi tạo khoa chưa đạt. Cần kiểm tra lại locator, thông báo validation hiển thị trên giao diện hoặc điều kiện `assert` trong mã kiểm thử. |
 
-### Lỗi còn lại
+Các test case còn lại đã chạy thành công, bao gồm:
 
-| Test bị lỗi | Mô tả |
-|---|---|
-| `test_create_faculty_empty_required_fields` | Test kiểm tra việc bỏ trống trường bắt buộc khi tạo khoa đang FAILED. Cần kiểm tra lại locator, thông báo validation hiển thị trên giao diện hoặc điều kiện assert trong mã test. |
-
-Lỗi này không làm ảnh hưởng đến các test case còn lại, tuy nhiên cần được xử lý trước khi kết luận bộ kiểm thử hoàn toàn ổn định.
-
----
-
-## 7. Hình ảnh minh họa
-
-Đặt ảnh kết quả chạy test vào thư mục `evidence/` của repository, ví dụ:
-
-```text
-evidence/
-└── selenium-test-result.png
-```
-
-Sau đó chèn ảnh vào README:
-
-```markdown
-![Kết quả chạy Selenium](evidence/selenium-test-result.png)
-```
-
-> Ảnh minh họa cho thấy Pytest đã chạy các kịch bản Selenium; đa số test có trạng thái `PASSED`, còn một test kiểm tra tạo khoa với trường bắt buộc đang `FAILED`.
+* Kiểm thử đăng nhập thành công, sai mật khẩu và bỏ trống thông tin đăng nhập.
+* Kiểm thử tạo mới, kiểm tra dữ liệu trùng và tìm kiếm môn học.
+* Kiểm thử tạo mới, kiểm tra dữ liệu trùng và tìm kiếm ngành.
+* Kiểm thử tạo mới, kiểm tra dữ liệu trùng và tìm kiếm chương trình đào tạo.
+* Kiểm thử thêm môn học vào chương trình đào tạo.
+* Kiểm thử xuất PDF chương trình đào tạo.
+* Kiểm thử chuyển hướng khi chưa đăng nhập và phân quyền truy cập trang quản trị.
 
 ---
 
-## 8. Nhận xét
+## 6. ĐÁNH GIÁ VÀ NHẬN XÉT
 
-Việc áp dụng Selenium giúp tự động hóa các thao tác lặp lại trên giao diện web, đặc biệt phù hợp với các chức năng CRUD, kiểm tra dữ liệu đầu vào, tìm kiếm và phân quyền. So với kiểm thử thủ công, bộ test có thể chạy lại nhiều lần sau khi sửa mã nguồn, từ đó hỗ trợ kiểm thử hồi quy.
+Thông qua quá trình thực hành, em đã áp dụng Selenium để tự động hóa nhiều thao tác kiểm thử trên giao diện web thay vì thực hiện thủ công. Selenium giúp kiểm tra nhanh các luồng chức năng lặp lại như đăng nhập, thêm dữ liệu, tìm kiếm và kiểm tra quyền truy cập.
 
-Trong quá trình thực hiện, một số vấn đề thường gặp là phần tử chưa tải xong, locator thay đổi, hoặc test kiểm tra nội dung hiển thị không khớp hoàn toàn với giao diện tiếng Việt. Các vấn đề này được giảm thiểu bằng cách sử dụng chờ tường minh (`WebDriverWait`), locator ổn định và kiểm tra chính xác thông báo kỳ vọng.
+Bộ kiểm thử được xây dựng theo từng nhóm chức năng riêng biệt nên dễ quản lý, dễ chạy lại và thuận tiện khi mở rộng thêm test case. Việc sử dụng `WebDriverWait` giúp giảm các lỗi phát sinh do trang web tải chậm hoặc phần tử giao diện chưa sẵn sàng để thao tác.
 
----
-
-## 9. Tài liệu đã tham khảo
-
-1. Selenium Documentation – WebDriver và Selenium IDE.  
-2. Pytest Documentation – cách tổ chức, chạy và báo cáo kiểm thử.  
-3. Tài liệu hướng dẫn thực hành Selenium của học phần Kiểm thử phần mềm.
+Kết quả chạy đạt 40/41 test thành công, tương đương 97,56%. Điều này cho thấy các chức năng chính đã được kiểm thử hoạt động tương đối ổn định. Một test case còn lỗi cần được xem xét lại để xác định nguyên nhân là do giao diện chưa hiển thị validation đúng như mong đợi hay do điều kiện kiểm tra trong mã Selenium chưa phù hợp.
 
 ---
 
-## 10. Hướng dẫn nộp bài
+## 7. KẾT LUẬN
 
-1. Tạo GitHub Repository mới, ví dụ: `selenium-unimis-testing`.
-2. Đưa mã nguồn kiểm thử, tệp `requirements.txt`, thư mục ảnh minh họa và `README.md` vào repository.
-3. Commit và push lên GitHub.
-4. Dán link repository vào nơi nộp bài và Google Sheet cùng với bài Postman.
+Bài thực hành đã đáp ứng yêu cầu xây dựng tối thiểu 03 test case kiểm thử tự động bằng Selenium. Thực tế, bộ kiểm thử đã được triển khai với 41 test case cho nhiều chức năng của hệ thống UniMIS.
 
-Ví dụ lệnh Git:
-
-```bash
-git init
-git add .
-git commit -m "Add Selenium automated test report"
-git branch -M main
-git remote add origin <LINK_REPOSITORY_CUA_BAN>
-git push -u origin main
-```
+Qua bài thực hành, em đã hiểu được cách thiết lập môi trường Selenium, tổ chức test case bằng Pytest, xác định phần tử trên giao diện bằng locator, sử dụng cơ chế chờ tường minh và kiểm tra kết quả tự động. Selenium là công cụ phù hợp để hỗ trợ kiểm thử hồi quy, giúp tiết kiệm thời gian và nâng cao độ tin cậy khi phát triển ứng dụng web.
