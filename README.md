@@ -114,42 +114,28 @@ selenium_tests/
 └── README.md
 ```
 
-![Cấu trúc thư mục](images/01_project_structure.png)
-
 ### 4.2. Kiểm thử đăng nhập thành công
 *Xác minh người dùng có thể đăng nhập vào trang quản trị khi cung cấp đúng tên đăng nhập và mật khẩu.*
-
-![Đăng nhập thành công](images/02_login_success.png)
 
 ### 4.3. Kiểm thử tạo môn học
 *Thực hiện thao tác thêm mới môn học với các thông tin hợp lệ như mã môn học, tên môn học và số tín chỉ.*
 
-![Tạo môn học](images/03_create_course.png)
-
 ### 4.4. Kiểm thử tìm kiếm môn học
 *Nhập mã hoặc tên môn học vào ô tìm kiếm và kiểm tra dữ liệu trả về có đúng với dữ liệu đã tạo.*
-
-![Tìm kiếm môn học](images/04_search_course.png)
 
 ### 4.5. Kiểm thử tạo chương trình đào tạo
 *Xác minh hệ thống có thể tạo chương trình đào tạo mới với ngành và năm áp dụng hợp lệ.*
 
-![Tạo chương trình đào tạo](images/05_create_curriculum.png)
-
 ### 4.6. Kiểm thử thêm môn học vào chương trình đào tạo
 *Kiểm tra thao tác liên kết môn học với chương trình đào tạo đã tồn tại.*
-
-![Thêm môn học vào chương trình](images/06_add_course_to_curriculum.png)
 
 ### 4.7. Kiểm thử phân quyền
 *Xác minh người dùng chưa đăng nhập không thể truy cập trực tiếp vào các trang quản trị của hệ thống.*
 
-![Kiểm thử phân quyền](images/07_permission_test.png)
-
 ### 4.8. Kết quả chạy toàn bộ bộ kiểm thử Selenium
 *Kết quả Pytest cho thấy phần lớn test case đã chạy thành công. Bộ kiểm thử bao gồm các chức năng đăng nhập, tạo dữ liệu, tìm kiếm, phân quyền, thêm môn học vào chương trình đào tạo và xuất PDF.*
 
-![Kết quả chạy Selenium](images/08_selenium_test_result.png)
+![Kết quả chạy Selenium](selenium_test_result.png)
 
 ---
 
