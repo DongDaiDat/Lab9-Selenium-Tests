@@ -1,4 +1,4 @@
-# THỰC HÀNH LAB 8: KIỂM THỬ GIAO DIỆN TỰ ĐỘNG VỚI SELENIUM
+# THỰC HÀNH LAB 9: KIỂM THỬ GIAO DIỆN TỰ ĐỘNG VỚI SELENIUM
 
 **Thông tin sinh viên:**
 * **Họ và tên:** Đồng Đại Đạt  
