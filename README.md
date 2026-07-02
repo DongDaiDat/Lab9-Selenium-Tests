@@ -182,4 +182,4 @@ Kết quả chạy đạt 40/41 test thành công, tương đương 97,56%. Đi�
 
 Bài thực hành đã đáp ứng yêu cầu xây dựng tối thiểu 03 test case kiểm thử tự động bằng Selenium. Thực tế, bộ kiểm thử đã được triển khai với 41 test case cho nhiều chức năng của hệ thống UniMIS.
 
-Qua bài thực hành, em đã hiểu được cách thiết lập môi trường Selenium, tổ chức test case bằng Pytest, xác định phần tử trên giao diện bằng locator, sử dụng cơ chế chờ tường minh và kiểm tra kết quả tự động. Selenium là công cụ phù hợp để hỗ trợ kiểm thử hồi quy, giúp tiết kiệm thời gian và nâng cao độ tin cậy khi phát triển ứng dụng web.
+Qua bài thực hành, em đã hiểu được cách thiết lập môi trường Selenium, tổ chức test case bằng Pytest, xác định phần tử trên giao diện bằng locator, sử dụng cơ chế chờ tường minh và kiểm tra kết quả tự động. Selenium là công cụ phù hợp để hỗ trợ kiểm thử hồi quy, giúp tiết kiệm thời gian và nâng cao độ tin cậy khi phát triển ứng dụng web....
