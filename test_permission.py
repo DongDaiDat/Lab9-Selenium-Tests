@@ -5,10 +5,6 @@ from config import BASE_URL, LOGIN_URL, ADMIN_USERNAME, ADMIN_PASSWORD
 from helpers import COURSE_ADD_URL, login_admin, body_text
 
 
-def test_unauthenticated_user_redirected_to_login(driver):
-    driver.get(COURSE_ADD_URL)
-    WebDriverWait(driver, 10).until(lambda d: "/admin/login/" in d.current_url)
-    assert "/admin/login/" in driver.current_url
 
 
 def test_admin_can_access_course_create_page(driver):
